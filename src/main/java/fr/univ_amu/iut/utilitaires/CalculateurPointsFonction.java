@@ -1,5 +1,6 @@
 package fr.univ_amu.iut.utilitaires;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CalculateurPointsFonction {
@@ -37,4 +38,23 @@ public class CalculateurPointsFonction {
     return listePoints;
   }
 
+  public static void main(String[] args) throws IOException, ErreurDeSyntaxe {
+    Analyseur analyseur = new Analyseur("exp(-x * 0.2) * sin(x)");
+    Expression fonction = analyseur.analyser();
+    System.out.println("f(x) = " + fonction);
+    new CalculateurPointsFonction(fonction, -0.5, 20);
+    double max = fonction.valeur(-0.5);
+    double min = fonction.valeur(-0.5);
+    for (double x = -0.5; x < 20; x += (20 - (-0.5)) / 1001) {
+      if (min > fonction.valeur(x)) {
+        min = fonction.valeur(x);
+      }
+      if (max < fonction.valeur(x)) {
+        max = fonction.valeur(x);
+      }
+      System.out.println("f(" + x + ") = " + fonction.valeur(x));
+    }
+    System.out.println("Minimum = " + min);
+    System.out.println("Maximum = " + max);
+  }
 }
