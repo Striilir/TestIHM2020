@@ -42,19 +42,11 @@ public class CalculateurPointsFonction {
     Analyseur analyseur = new Analyseur("exp(-x * 0.2) * sin(x)");
     Expression fonction = analyseur.analyser();
     System.out.println("f(x) = " + fonction);
-    new CalculateurPointsFonction(fonction, -0.5, 20);
-    double max = fonction.valeur(-0.5);
-    double min = fonction.valeur(-0.5);
-    for (double x = -0.5; x < 20; x += (20 - (-0.5)) / 1001) {
-      if (min > fonction.valeur(x)) {
-        min = fonction.valeur(x);
-      }
-      if (max < fonction.valeur(x)) {
-        max = fonction.valeur(x);
-      }
-      System.out.println("f(" + x + ") = " + fonction.valeur(x));
+    CalculateurPointsFonction pointsList = new CalculateurPointsFonction(fonction, -0.5, 20);
+    for(int k = 0; k < pointsList.getListePoints().size();++k) {
+      System.out.println("f(" + pointsList.getListePoints().get(k).getX() + ") = " + pointsList.getListePoints().get(k).getX());
     }
-    System.out.println("Minimum = " + min);
-    System.out.println("Maximum = " + max);
+    System.out.println("Maximum = " + pointsList.getYMax());
+    System.out.println("Minimum = " + pointsList.getYMin());
   }
 }
