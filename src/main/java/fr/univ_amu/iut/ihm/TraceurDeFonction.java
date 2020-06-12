@@ -1,9 +1,13 @@
 package fr.univ_amu.iut.ihm;
 
+import fr.univ_amu.iut.utilitaires.Analyseur;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -48,7 +52,7 @@ public class TraceurDeFonction extends Application {
       pane.setId("axeX");
       pane.setId("axeY");*/
   }
-
+    @Override
   public void start(Stage stage) {
       stage.setTitle("Traceur de fonction");
       Pane root = new Pane();
@@ -60,6 +64,17 @@ public class TraceurDeFonction extends Application {
       textField.setMinWidth(120);
       root.setPadding(new Insets(10));
       root.getChildren().add(textField);
+        Label label = new Label();
+      Button buttonAnalyser = new Button("analyser");
+      buttonAnalyser.setOnAction(new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent actionEvent) {
+              Analyseur analyseur = new Analyseur();
+              String text = new String();
+              text = textField.getText();
+              label.setText( "Expression analysée : f(x) = " + analyseur.analyser(text);
+          }
+      });
       stage.setScene(scene);
       stage.show();
   }
